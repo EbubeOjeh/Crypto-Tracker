@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Crypto Price Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta http-equiv="refresh" content="30">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🚀 Crypto Dashboard</h1>
+
+
+        <div class="card-container">
+            {% for coin in coins %}
+            <div class="card">
+                <h2>{{ coin.name }} ({{ coin.symbol.upper() }})</h2>
+
+                <p class="price">
+                    {% if coin.current_price is not none %}
+                    ${{ coin.current_price }}
+                    {% else %}
+                    Unavailable
+                    {% endif %}
+                </p>
+
+                {% if coin.price_change_percentage_24h is not none %}
+                <p class="change 
+            {% if coin.price_change_percentage_24h >= 0 %}
+                positive
+            {% else %}
+                negative
+            {% endif %}
+        ">
+                    {{ coin.price_change_percentage_24h | round(2) }}%
+                </p>
+                {% else %}
+                <p class="change">N/A</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <p class="updated">Last Updated: {{ last_updated }}</p>
+    </div>
+
+</body>
+
+</html>

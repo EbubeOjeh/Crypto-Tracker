@@ -1,0 +1,36 @@
+from flask import Flask, render_template
+import requests
+from datetime import datetime
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    url = "https://api.coingecko.com/api/v3/coins/markets"
+
+    params = {
+        "vs_currency": "usd",
+        "order": "market_cap_desc",
+        "per_page": 100,   # Number of coins to fetch
+        "page": 1,
+        "sparkline": False
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        coins = response.json()
+    except Exception as e:
+        print("Error:", e)
+        coins = []
+
+    last_updated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    return render_template("index.html",
+                           coins=coins,
+                           last_updated=last_updated)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

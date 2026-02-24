@@ -1,0 +1,55 @@
+/* Dark Theme Background */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0f172a;
+    color: white;
+}
+
+/* Main Container */
+.container {
+    text-align: center;
+    padding: 40px;
+}
+
+/* Title */
+h1 {
+    margin-bottom: 40px;
+}
+
+/* Card Layout */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Individual Card */
+.card {
+    background-color: #1e293b;
+    padding: 25px;
+    width: 220px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transition: 0.3s;
+}
+
+/* Hover Effect */
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Price Styling */
+.price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+/* Last Updated Text */
+.updated {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #94a3b8;
+}
