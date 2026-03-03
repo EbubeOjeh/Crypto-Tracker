@@ -5,23 +5,49 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+# Coins to track
+COINS = [
+    "bitcoin",
+    "ethereum",
+    "solana",
+    "ripple",
+    "dogecoin",
+    "tether",
+    "binancecoin",
+    "TRON"
+]
+
 
 @app.route("/")
 def index():
-    url = "https://api.coinpaprika.com/v1/tickers"
+    url = "https://api.coingecko.com/api/v3/simple/price"
+
+    params = {
+        "ids": ",".join(COINS),
+        "vs_currencies": "usd"
+    }
 
     try:
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        coins = response.json()[:20]  # Top 20 coins
+        response = requests.get(url, params=params)
+        response.raise_for_status()  # Raise error if request fails
+        data = response.json()
     except Exception as e:
-        print("API ERROR:", e)
-        coins = []
+        print("Error fetching data:", e)
+        data = {}
+
+    # Format data into cleaner dictionary
+    prices = {}
+
+    for coin in COINS:
+        if coin in data:
+            prices[coin] = data[coin]["usd"]
+        else:
+            prices[coin] = "Unavailable"
 
     last_updated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     return render_template("index.html",
-                           coins=coins,
+                           prices=prices,
                            last_updated=last_updated)
 
 

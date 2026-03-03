@@ -1,49 +1,55 @@
+/* Dark Theme Background */
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    background-color: #0f172a;
+    color: white;
 }
 
-
+/* Main Container */
 .container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
+    text-align: center;
+    padding: 40px;
 }
 
+/* Title */
+h1 {
+    margin-bottom: 40px;
+}
+
+/* Card Layout */
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    justify-content: center;
+    gap: 20px;
 }
 
+/* Individual Card */
 .card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    width: 200px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #1e293b;
+    padding: 25px;
+    width: 220px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transition: 0.3s;
 }
 
+/* Hover Effect */
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Price Styling */
 .price {
+    font-size: 22px;
     font-weight: bold;
-    font-size: 1.2em;
+    color: #38bdf8;
 }
 
-.change.positive {
-    color: green;
-}
-
-.change.negative {
-    color: red;
-}
-
-h1 {
-    text-align: center;
-}
-
+/* Last Updated Text */
 .updated {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.9em;
-    color: #555;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #94a3b8;
 }
