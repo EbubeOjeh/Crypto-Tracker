@@ -8,25 +8,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    url = "https://api.coingecko.com/api/v3/coins/markets"
-
-    params = {
-        "vs_currency": "usd",
-        "order": "market_cap_desc",
-        "per_page": 100,  # You can reduce to 10 if CoinGecko blocks free IPs
-        "page": 1,
-        "sparkline": False
-    }
+    url = "https://api.coincap.io/v2/assets"
 
     try:
-        response = requests.get(
-            url,
-            params=params,
-            timeout=10,
-            headers={"User-Agent": "Mozilla/5.0"}
-        )
+        response = requests.get(url, timeout=10, headers={
+                                "User-Agent": "Mozilla/5.0"})
         response.raise_for_status()
-        coins = response.json()
+        data = response.json()
+        coins = data.get("data", [])[:20]  # get first 20 coins
     except Exception as e:
         print("API ERROR:", e)
         coins = []
