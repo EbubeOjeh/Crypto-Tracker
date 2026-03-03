@@ -18,7 +18,12 @@ def index():
     }
 
     try:
-        response = requests.get(url, params=params, timeout=5)
+        response = requests.get(
+            url,
+            params=params,
+            timeout=10,
+            headers={"User-Agent": "Mozilla/5.0"}
+        )
         response.raise_for_status()
         coins = response.json()
     except Exception as e:
