@@ -19,17 +19,19 @@ def index():
     }
 
     try:
-        response = requests.get(
-            url,
-            params=params,
-            timeout=10,
-            headers={"User-Agent": "Mozilla/5.0"}
-        )
-        response.raise_for_status()
-        coins = response.json()
-    except Exception as e:
-        print("API ERROR:", e)
-        coins = []
+    response = requests.get(
+        url,
+        params=params,
+        timeout=10,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
+    response.raise_for_status()
+    coins = response.json()
+
+
+except Exception as e:
+    print("API ERROR:", e)
+    coins = []
 
     last_updated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
