@@ -8,52 +8,29 @@
 </head>
 
 <body>
-
     <div class="container">
         <h1>🚀 Crypto Dashboard</h1>
 
         <div class="card-container">
-
             {% if coins %}
             {% for coin in coins %}
             <div class="card">
-                <h2>{{ coin.name }} ({{ coin.symbol.upper() }})</h2>
-
+                <h2>{{ coin.name }} ({{ coin.symbol }})</h2>
                 <p class="price">
-                    {% if coin.current_price is not none %}
-                    ${{ coin.current_price }}
-                    {% else %}
-                    Unavailable
-                    {% endif %}
+                    ${{ "%.2f"|format(coin.quotes.USD.price) }}
                 </p>
-
-                {% if coin.price_change_percentage_24h is not none %}
-                <p class="change 
-                    {% if coin.price_change_percentage_24h >= 0 %}
-                        positive
-                    {% else %}
-                        negative
-                    {% endif %}
-                ">
-                    {{ coin.price_change_percentage_24h | round(2) }}%
+                <p class="change {% if coin.quotes.USD.percent_change_24h >= 0 %}positive{% else %}negative{% endif %}">
+                    {{ "%.2f"|format(coin.quotes.USD.percent_change_24h) }}%
                 </p>
-                {% else %}
-                <p class="change">N/A</p>
-                {% endif %}
             </div>
             {% endfor %}
-
             {% else %}
-            <p style="text-align:center;">
-                Unable to fetch crypto data. Please refresh.
-            </p>
+            <p style="text-align:center;">Unable to fetch crypto data. Please refresh.</p>
             {% endif %}
-
         </div>
 
         <p class="updated">Last Updated: {{ last_updated }}</p>
     </div>
-
 </body>
 
 </html>

@@ -8,25 +8,21 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    url = "https://api.coincap.io/v2/assets"
+    url = "https://api.coinpaprika.com/v1/tickers"
 
     try:
-        response = requests.get(url, timeout=10, headers={
-                                "User-Agent": "Mozilla/5.0"})
+        response = requests.get(url, timeout=10)
         response.raise_for_status()
-        data = response.json()
-        coins = data.get("data", [])[:20]  # get first 20 coins
+        coins = response.json()[:20]  # Top 20 coins
     except Exception as e:
         print("API ERROR:", e)
         coins = []
 
     last_updated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    return render_template(
-        "index.html",
-        coins=coins,
-        last_updated=last_updated
-    )
+    return render_template("index.html",
+                           coins=coins,
+                           last_updated=last_updated)
 
 
 if __name__ == "__main__":
