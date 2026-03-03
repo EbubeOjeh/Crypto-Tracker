@@ -12,17 +12,17 @@ def index():
     params = {
         "vs_currency": "usd",
         "order": "market_cap_desc",
-        "per_page": 100,   # Number of coins to fetch
+        "per_page": 100,
         "page": 1,
         "sparkline": False
     }
 
     try:
-        response = requests.get(url, params=params)
+        response = requests.get(url, params=params, timeout=5)
         response.raise_for_status()
         coins = response.json()
     except Exception as e:
-        print("Error:", e)
+        print("API ERROR:", e)
         coins = []
 
     last_updated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -33,4 +33,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    app.run()
